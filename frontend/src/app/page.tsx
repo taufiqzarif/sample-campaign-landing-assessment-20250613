@@ -3,7 +3,8 @@ import { Campaign } from "@/types";
 
 async function getCampaigns(): Promise<Campaign[]> {
   try {
-    const res = await fetch("http://localhost:3001/api/campaigns", {
+    const apiUrl = process.env.NEXT_PUBLIC_API_URL;
+    const res = await fetch(`${apiUrl}/api/campaigns`, {
       cache: "no-store",
     });
     if (!res.ok) {

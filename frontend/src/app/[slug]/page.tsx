@@ -12,8 +12,9 @@ async function getCampaign(
   lang: string
 ): Promise<Campaign | null> {
   try {
+    const apiUrl = process.env.NEXT_PUBLIC_API_URL;
     const res = await fetch(
-      `http://localhost:3001/api/campaigns/slug/${slug}?lang=${lang}`,
+      `${apiUrl}/api/campaigns/slug/${slug}?lang=${lang}`,
       { cache: "no-store" } // Disable cache for development
     );
 
