@@ -1,119 +1,155 @@
 import db from "../models";
 
 const seed = async () => {
-	console.log("Seeding database...");
-	// Clear database in reverse order of creation
-	await db.CampaignProduct.destroy({ where: {} });
-	await db.SectionContent.destroy({ where: {} });
-	await db.Campaign.destroy({ where: {} });
-	await db.Product.destroy({ where: {} });
-	await db.TemplateSection.destroy({ where: {} });
-	await db.Section.destroy({ where: {} });
-	await db.Template.destroy({ where: {} });
-	console.log("Previous data cleared.");
+  console.log("Seeding database...");
+  // Clear database in reverse order of creation to avoid foreign key constraints
+  await db.CampaignProduct.destroy({
+    where: {},
+    truncate: true,
+    cascade: true,
+  });
+  await db.SectionContent.destroy({ where: {}, truncate: true, cascade: true });
+  await db.Campaign.destroy({ where: {}, truncate: true, cascade: true });
+  await db.Product.destroy({ where: {}, truncate: true, cascade: true });
+  await db.TemplateSection.destroy({
+    where: {},
+    truncate: true,
+    cascade: true,
+  });
+  await db.Section.destroy({ where: {}, truncate: true, cascade: true });
+  await db.Template.destroy({ where: {}, truncate: true, cascade: true });
+  console.log("Previous data cleared.");
 
-	// Add seed data
-	const template = await db.Template.create({ name: "Default Template" });
+  // 1. Create Template
+  const template = await db.Template.create({ name: "Default Template" });
 
-	const heroSection = await db.Section.create({ name: "Hero", type: "hero" });
-	const productSection = await db.Section.create({
-		name: "Product List",
-		type: "product-list",
-	});
-	const footerSection = await db.Section.create({
-		name: "Footer",
-		type: "footer",
-	});
+  // 2. Create Sections
+  const heroSection = await db.Section.create({ name: "Hero", type: "hero" });
+  const productSection = await db.Section.create({
+    name: "Product List",
+    type: "product-list",
+  });
+  const footerSection = await db.Section.create({
+    name: "Footer",
+    type: "footer",
+  });
 
-	await db.TemplateSection.bulkCreate([
-		{ templateId: template.id, sectionId: heroSection.id, order: 1 },
-		{ templateId: template.id, sectionId: productSection.id, order: 2 },
-		{ templateId: template.id, sectionId: footerSection.id, order: 3 },
-	]);
+  // Link Sections to Template
+  await template.addSection(heroSection, { through: { order: 1 } });
+  await template.addSection(productSection, { through: { order: 2 } });
+  await template.addSection(footerSection, { through: { order: 3 } });
 
-	const products = await db.Product.bulkCreate([
-		{
-			name: "Cool Gadget",
-			price: 49.99,
-			imageUrl: "https://images.unsplash.com/photo-1556888335-23631cd2801a?q=80&w=1770&auto=format&fit=crop",
-		},
-		{
-			name: "Awesome Widget",
-			price: 24.99,
-			imageUrl: "https://images.unsplash.com/photo-1581291518857-4e27b48ff24e?q=80&w=1770&auto=format&fit=crop",
-		},
-		{
-			name: "Super Thing",
-			price: 99.99,
-			imageUrl: "https://images.unsplash.com/photo-1556888335-23631cd2801a?q=80&w=1770&auto=format&fit=crop",
-		},
-		{
-			name: "Generic Item",
-			price: 19.99,
-			imageUrl: "https://images.unsplash.com/photo-1496181133206-80ce9b88a853?q=80&w=1770&auto=format&fit=crop",
-		},
-	]);
+  // 3. Create Products
+  const products = await db.Product.bulkCreate([
+    {
+      name: "Stylish Summer T-Shirt",
+      price: 29.99,
+      imageUrl:
+        "https://images.unsplash.com/photo-1521572163474-6864f9cf17ab?q=80&w=1780&auto=format&fit=crop",
+    },
+    {
+      name: "Cool Sunglasses",
+      price: 49.99,
+      imageUrl:
+        "https://images.unsplash.com/photo-1511499767150-a48a237f0083?q=80&w=1780&auto=format&fit=crop",
+    },
+    {
+      name: "Beach Towel",
+      price: 19.99,
+      imageUrl:
+        "https://images.unsplash.com/photo-1600298878524-c1aa03842343?q=80&w=1780&auto=format&fit=crop",
+    },
+    {
+      name: "Water Bottle",
+      price: 15.99,
+      imageUrl:
+        "https://images.unsplash.com/photo-1602143407151-2465ce5d4d40?q=80&w=1887&auto=format&fit=crop",
+    },
+  ]);
 
-	const campaigns = await db.Campaign.bulkCreate([
-		{
-			name: "Father's Day 2025",
-			slug: "fathersday2025",
-			templateId: template.id,
-		},
-		{
-			name: "Mooncake Festival 2025",
-			slug: "mooncakefestival2025",
-			templateId: template.id,
-		},
-	]);
+  // 4. Create Campaigns
+  const campaigns = await db.Campaign.bulkCreate([
+    {
+      name: "Summer Sale Campaign",
+      slug: "summer-sale-campaign",
+      templateId: template.id,
+    },
+    {
+      name: "Father's Day 2025",
+      slug: "fathersday2025",
+      templateId: template.id,
+    },
+    {
+      name: "Mooncake Festival 2025",
+      slug: "mooncakefestival2025",
+      templateId: template.id,
+    },
+  ]);
 
-	const contents = [];
-	for (const campaign of campaigns) {
-		for (const section of [heroSection, footerSection]) {
-			for (const lang of ["en", "cn", "my"] as const) {
-				let content = "";
-				if (section.type === "hero") {
-					if (lang === "en")
-						content = `<h1>Welcome to ${campaign.slug} (EN)</h1>`;
-					if (lang === "cn")
-						content = `<h1>欢迎来到 ${campaign.slug} (CN)</h1>`;
-					if (lang === "my")
-						content = `<h1>Selamat Datang ke ${campaign.slug} (MY)</h1>`;
-				} else if (section.type === "footer") {
-					if (lang === "en") content = `<p>&copy; 2025 (EN)</p>`;
-					if (lang === "cn") content = `<p>&copy; 2025 (CN)</p>`;
-					if (lang === "my") content = `<p>&copy; 2025 (MY)</p>`;
-				}
-				contents.push({
-					campaignId: campaign.id,
-					sectionId: section.id,
-					language: lang,
-					content: content,
-				});
-			}
-		}
-	}
-	await db.SectionContent.bulkCreate(contents);
+  // 5. Link Products to Campaigns & Create Section Content
+  const sectionContents = [];
+  for (const campaign of campaigns) {
+    // Link all products to each campaign
+    await campaign.addProducts(products);
 
-	const campaignProducts = [];
-	for (const campaign of campaigns) {
-		for (const product of products) {
-			campaignProducts.push({
-				campaignId: campaign.id,
-				productId: product.id,
-			});
-		}
-	}
-	await db.CampaignProduct.bulkCreate(campaignProducts);
+    // Create content for hero and footer sections for each campaign and each language
+    for (const lang of ["en", "my"] as const) {
+      let heroContent: { title: string; subtitle: string; imageUrl: string };
+      let footerContent: { text: string };
 
-	console.log("Database seeded successfully!");
+      switch (lang) {
+        case "my":
+          heroContent = {
+            title: `Selamat Datang ke kempen ${campaign.name}! (MY)`,
+            subtitle: "Tawaran istimewa hanya untuk anda.",
+            imageUrl:
+              "https://images.unsplash.com/photo-1593642532400-2682810df593?q=80&w=1778&auto=format&fit=crop",
+          };
+          footerContent = {
+            text: `© 2025 ${campaign.name}. Hak cipta terpelihara. (MY)`,
+          };
+          break;
+        case "en":
+        default:
+          heroContent = {
+            title: `Welcome to our ${campaign.name} campaign! (EN)`,
+            subtitle: "Special deals just for you.",
+            imageUrl:
+              "https://images.unsplash.com/photo-1593642532400-2682810df593?q=80&w=1778&auto=format&fit=crop",
+          };
+          footerContent = {
+            text: `© 2025 ${campaign.name}. All rights reserved. (EN)`,
+          };
+          break;
+      }
+
+      sectionContents.push(
+        {
+          campaignId: campaign.id,
+          sectionId: heroSection.id,
+          language: lang,
+          content: JSON.stringify(heroContent),
+        },
+        {
+          campaignId: campaign.id,
+          sectionId: footerSection.id,
+          language: lang,
+          content: JSON.stringify(footerContent),
+        }
+      );
+    }
+  }
+
+  await db.SectionContent.bulkCreate(sectionContents);
+
+  console.log("Database seeded successfully!");
 };
 
 seed()
-	.catch((err) => {
-		console.error("Failed to seed database:", err);
-		process.exit(1);
-	})
-	.finally(() => {
-		db.sequelize.close();
-	});
+  .catch((err) => {
+    console.error("Failed to seed database:", err);
+    process.exit(1);
+  })
+  .finally(() => {
+    db.sequelize.close();
+  });

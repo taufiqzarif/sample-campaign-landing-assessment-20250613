@@ -77,6 +77,14 @@ Content-Type: application/json
 ### Delete a campaign
 DELETE http://localhost:3001/api/campaigns/1
 
+### Get Campaign by Slug
+GET http://localhost:3001/api/campaigns/slug/summer-sale-campaign
+
+### Get Campaign by Slug (EN)
+GET http://localhost:3001/api/campaigns/slug/fathersday2025?lang=en
+
+### Get Campaign by Slug (MY)
+GET http://localhost:3001/api/campaigns/slug/fathersday2025?lang=my
 
 ### Section APIs
 

@@ -64,3 +64,20 @@ export const deleteCampaign = async (req: Request, res: Response) => {
     res.status(500).json({ error: "Failed to delete campaign" });
   }
 };
+
+export const getCampaignBySlug = async (req: Request, res: Response) => {
+  try {
+    const campaign = await campaignService.getCampaignBySlug(
+      req.params.slug,
+      req.query.lang as string
+    );
+    if (campaign) {
+      res.status(200).json(campaign);
+    } else {
+      res.status(404).json({ error: "Campaign not found" });
+    }
+  } catch (error) {
+    console.error("Error fetching campaign by slug:", error);
+    res.status(500).json({ error: "Failed to retrieve campaign" });
+  }
+};
