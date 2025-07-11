@@ -34,6 +34,17 @@ export const deleteCampaign = async (id: number) => {
 };
 
 export const getCampaignBySlug = async (slug: string, lang?: string) => {
+  const supportedLanguages = ["en", "my"];
+  if (lang && !supportedLanguages.includes(lang)) {
+    const err = new Error(
+      `Language '${lang}' is not supported. Supported languages are: ${supportedLanguages.join(
+        ", "
+      )}.`
+    );
+    (err as any).name = "UnsupportedLanguageError";
+    throw err;
+  }
+
   const language = lang || "en";
 
   const campaign = await Campaign.findOne({
@@ -73,7 +84,7 @@ export const getCampaignBySlug = async (slug: string, lang?: string) => {
     try {
       content.content = JSON.parse(content.content as any);
     } catch (e) {
-      /* ignore */
+      console.error(`Error parsing content for section ${sectionId}:`, e);
     }
     contentsBySectionId.get(sectionId)!.push(content.get({ plain: true }));
   });

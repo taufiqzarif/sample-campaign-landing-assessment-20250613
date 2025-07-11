@@ -76,8 +76,12 @@ export const getCampaignBySlug = async (req: Request, res: Response) => {
     } else {
       res.status(404).json({ error: "Campaign not found" });
     }
-  } catch (error) {
-    console.error("Error fetching campaign by slug:", error);
-    res.status(500).json({ error: "Failed to retrieve campaign" });
+  } catch (error: any) {
+    if (error.name === "UnsupportedLanguageError") {
+      res.status(400).json({ error: error.message });
+    } else {
+      console.error("Error fetching campaign by slug:", error);
+      res.status(500).json({ error: "Failed to retrieve campaign" });
+    }
   }
 };

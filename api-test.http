@@ -86,6 +86,9 @@ GET http://localhost:3001/api/campaigns/slug/fathersday2025?lang=en
 ### Get Campaign by Slug (MY)
 GET http://localhost:3001/api/campaigns/slug/fathersday2025?lang=my
 
+### Get Campaign by Slug (Unsupported Language)
+GET http://localhost:3001/api/campaigns/slug/fathersday2025?lang=cn
+
 ### Section APIs
 
 ### Get all sections
