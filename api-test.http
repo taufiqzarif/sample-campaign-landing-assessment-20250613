@@ -1,1 +1,47 @@
-GET http://localhost:3001
+### Template APIs
+
+### Get all templates
+GET http://localhost:3001/api/templates
+
+### Create a new template
+POST http://localhost:3001/api/templates
+Content-Type: application/json
+
+{
+  "name": "Summer Sale Template",
+  "structure": {
+    "hero": "Hero Banner",
+    "products": "Product Grid",
+    "footer": "Standard Footer"
+  }
+}
+
+###
+# @name createdTemplate
+# @prompt template_id
+# @prompt template_name
+POST http://localhost:3001/api/templates
+Content-Type: application/json
+
+{
+    "name": "{{template_name}}",
+    "structure": {
+        "hero": "Dynamic Hero",
+        "products": "Dynamic Products"
+    }
+}
+
+
+### Get a single template by ID
+GET http://localhost:3001/api/templates/1
+
+### Update a template
+PUT http://localhost:3001/api/templates/3
+Content-Type: application/json
+
+{
+  "name": "Updated Summer Sale Template"
+}
+
+### Delete a template
+DELETE http://localhost:3001/api/templates/2
