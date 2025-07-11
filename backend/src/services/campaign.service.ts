@@ -34,7 +34,7 @@ export const deleteCampaign = async (id: number) => {
 };
 
 export const getCampaignBySlug = async (slug: string, lang?: string) => {
-  const supportedLanguages = ["en", "my"];
+  const supportedLanguages = ["en", "my", "cn"];
   if (lang && !supportedLanguages.includes(lang)) {
     const err = new Error(
       `Language '${lang}' is not supported. Supported languages are: ${supportedLanguages.join(

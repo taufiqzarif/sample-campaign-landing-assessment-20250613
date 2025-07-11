@@ -115,7 +115,7 @@ const seed = async () => {
 	const sectionContents = [];
 	for (const campaign of campaigns) {
 		// Create content for hero and footer sections for each campaign and each language
-		for (const lang of ["en", "my"] as const) {
+		for (const lang of ["en", "my", "cn"] as const) {
 			let heroContent: { title: string; subtitle: string; imageUrl: string };
 			let footerContent: { text: string };
 
@@ -129,6 +129,17 @@ const seed = async () => {
 					};
 					footerContent = {
 						text: `© 2025 ${campaign.name}. Hak cipta terpelihara. (MY)`,
+					};
+					break;
+				case "cn":
+					heroContent = {
+						title: `欢迎来到我们的 ${campaign.name} 活动! (CN)`,
+						subtitle: "为您提供特别优惠。",
+						imageUrl:
+							"https://images.unsplash.com/photo-1593642532400-2682810df593?q=80&w=1778&auto=format&fit=crop",
+					};
+					footerContent = {
+						text: `© 2025 ${campaign.name}. 版权所有。 (CN)`,
 					};
 					break;
 				case "en":

@@ -31,6 +31,7 @@ const LanguageSwitcher = () => {
       >
         <option value="en">English</option>
         <option value="my">Bahasa Malaysia</option>
+        <option value="cn">中文</option>
       </select>
     </div>
   );

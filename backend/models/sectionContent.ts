@@ -37,10 +37,10 @@ export class SectionContent extends Model {
   sectionId!: number;
 
   @Column({
-    type: DataType.ENUM("en", "my"),
+    type: DataType.ENUM("en", "my", "cn"),
     allowNull: false,
   })
-  language!: "en" | "my";
+  language!: "en" | "my" | "cn";
 
   @Column({
     type: DataType.TEXT,
