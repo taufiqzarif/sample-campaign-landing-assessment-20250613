@@ -1,0 +1,161 @@
+### Template APIs
+
+### Get all templates
+GET http://localhost:3001/api/templates
+
+### Create a new template
+POST http://localhost:3001/api/templates
+Content-Type: application/json
+
+{
+  "name": "Summer Sale Template",
+  "structure": {
+    "hero": "Hero Banner",
+    "products": "Product Grid",
+    "footer": "Standard Footer"
+  }
+}
+
+###
+# @name createdTemplate
+# @prompt template_id
+# @prompt template_name
+POST http://localhost:3001/api/templates
+Content-Type: application/json
+
+{
+    "name": "{{template_name}}",
+    "structure": {
+        "hero": "Dynamic Hero",
+        "products": "Dynamic Products"
+    }
+}
+
+
+### Get a single template by ID
+GET http://localhost:3001/api/templates/1
+
+### Update a template
+PUT http://localhost:3001/api/templates/3
+Content-Type: application/json
+
+{
+  "name": "Updated Summer Sale Template"
+}
+
+### Delete a template
+DELETE http://localhost:3001/api/templates/2
+
+
+### Campaign APIs
+
+### Get all campaigns
+GET http://localhost:3001/api/campaigns
+
+### Create a new campaign
+POST http://localhost:3001/api/campaigns
+Content-Type: application/json
+
+{
+  "name": "Summer Sale Campaign",
+  "slug": "summer-sale-campaign",
+  "language": "en",
+  "templateId": 1
+}
+
+### Get a single campaign by ID
+GET http://localhost:3001/api/campaigns/1
+
+### Update a campaign
+PUT http://localhost:3001/api/campaigns/1
+Content-Type: application/json
+
+{
+  "name": "Father's Day 2025 (Updated)"
+}
+
+### Delete a campaign
+DELETE http://localhost:3001/api/campaigns/1
+
+### Get Campaign by Slug
+GET http://localhost:3001/api/campaigns/slug/summer-sale-campaign
+
+### Get Campaign by Slug (EN)
+GET http://localhost:3001/api/campaigns/slug/fathersday2025?lang=en
+
+### Get Campaign by Slug (MY)
+GET http://localhost:3001/api/campaigns/slug/fathersday2025?lang=my
+
+### Get Campaign by Slug (Unsupported Language)
+GET http://localhost:3001/api/campaigns/slug/fathersday2025?lang=cn
+
+### Section APIs
+
+### Get all sections
+GET http://localhost:3001/api/sections
+
+### Create a new section
+POST http://localhost:3001/api/sections
+Content-Type: application/json
+
+{
+  "name": "Summer Hero Banner",
+  "type": "hero",
+  "language": "en",
+  "campaignId": 1,
+  "content": {
+    "title": "Welcome to our Summer Sale!",
+    "imageUrl": "/images/summer-hero.jpg"
+  }
+}
+
+### Get a single section by ID
+GET http://localhost:3001/api/sections/10
+
+### Update a section
+PUT http://localhost:3001/api/sections/10
+Content-Type: application/json
+
+{
+  "name": "Summer Hero Banner (Updated)",
+  "type": "hero",
+  "language": "en",
+  "campaignId": 1,
+  "content": {
+    "title": "Welcome to our Massive Summer Sale!",
+    "imageUrl": "/images/summer-hero-updated.jpg"
+  }
+}
+
+### Delete a section
+DELETE http://localhost:3001/api/sections/10
+
+
+### Product APIs
+
+### Get all products
+GET http://localhost:3001/api/products
+
+### Create a new product
+POST http://localhost:3001/api/products
+Content-Type: application/json
+
+{
+  "name": "Stylish Summer T-Shirt",
+  "price": 29.99,
+  "imageUrl": "/images/summer-tshirt.jpg"
+}
+
+### Get a single product by ID
+GET http://localhost:3001/api/products/5
+
+### Update a product
+PUT http://localhost:3001/api/products/1
+Content-Type: application/json
+
+{
+  "price": 25.99
+}
+
+### Delete a product
+DELETE http://localhost:3001/api/products/1
