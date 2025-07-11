@@ -25,7 +25,7 @@ cd sample-campaign-landing-assessment-20250613
 cd backend
 npm install
 
-# Install frontend dependencies  
+# Install frontend dependencies
 cd ../frontend
 npm install
 ```
@@ -35,6 +35,7 @@ npm install
 Create PostgreSQL database: `campaign_db`
 
 Set environment variables (create .env in backend/):
+
 ```
 DB_USERNAME=postgres
 DB_PASSWORD=your_password
@@ -61,6 +62,12 @@ The backend will run on **http://localhost:3001**
 
 ### 4. Frontend Setup
 
+Set environment variables (create .env in frontend/):
+
+```
+NEXT_PUBLIC_API_URL=http://localhost:3001
+```
+
 ```bash
 cd frontend
 
@@ -75,7 +82,7 @@ The frontend will run on **http://localhost:3000**
 Use the included `api-test.http` file to test all endpoints:
 
 - **Templates CRUD**
-- **Campaigns CRUD** 
+- **Campaigns CRUD**
 - **Sections CRUD**
 - **Products CRUD**
 - **Get Campaign by Slug** (main endpoint for frontend)
@@ -92,13 +99,15 @@ Example: GET `/api/campaigns/slug/fathersday2025`
 ## 🛠️ Available Scripts
 
 ### Backend
+
 - `npm run dev` - Development server with hot reload
 - `npm run build` - Build TypeScript to JavaScript
 - `npm run start` - Production server
 - `npm run migrate` - Run database migrations
 - `npm run seed:ts` - Seed database with sample data
 
-### Frontend  
+### Frontend
+
 - `npm run dev` - Development server with Turbopack
 - `npm run build` - Build for production
 - `npm run start` - Production server
