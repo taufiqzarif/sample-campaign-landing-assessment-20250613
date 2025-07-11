@@ -7,7 +7,6 @@
     "start": "npm run build && node dist/index.js",
     "dev": "npm run build && concurrently \"npx tsc --w\" \"nodemon --exec ts-node src/index.ts\"",
     "migrate": "sequelize-cli db:migrate",
-    "seed": "sequelize-cli db:seed:all",
     "seed:ts": "ts-node seeders/typescript-seeder.ts",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
