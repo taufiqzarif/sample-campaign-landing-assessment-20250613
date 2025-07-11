@@ -70,7 +70,7 @@ export default async function CampaignPage({
   }
 
   return (
-    <main>
+    <main className="flex flex-col min-h-screen bg-white">
       <LanguageSwitcher />
       {campaign.template.sections
         .sort((a, b) => a.id - b.id) // Simple sort by id

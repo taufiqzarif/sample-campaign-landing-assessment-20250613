@@ -11,7 +11,7 @@ const Footer = ({ section }: FooterProps) => {
   const { text } = content;
 
   return (
-    <footer className="bg-gray-800 text-white p-4 text-center">
+    <footer className="bg-gray-800 text-white p-4 text-center mt-auto">
       <p>{text}</p>
     </footer>
   );
