@@ -123,4 +123,4 @@ Example: GET `/api/campaigns/slug/fathersday2025`
 
 ## 🌍 Multi-Language Support
 
-The system supports English (`en`) and Malay (`my`) content versions stored in the `SectionContent` table.
+The system supports English (`en`), Malay (`my`) and Chinese (`cn`) content versions stored in the `SectionContent` table.
