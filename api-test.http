@@ -45,3 +45,34 @@ Content-Type: application/json
 
 ### Delete a template
 DELETE http://localhost:3001/api/templates/2
+
+
+### Campaign APIs
+
+### Get all campaigns
+GET http://localhost:3001/api/campaigns
+
+### Create a new campaign
+POST http://localhost:3001/api/campaigns
+Content-Type: application/json
+
+{
+  "name": "Summer Sale Campaign",
+  "slug": "summer-sale-campaign",
+  "language": "en",
+  "templateId": 1
+}
+
+### Get a single campaign by ID
+GET http://localhost:3001/api/campaigns/1
+
+### Update a campaign
+PUT http://localhost:3001/api/campaigns/1
+Content-Type: application/json
+
+{
+  "name": "Father's Day 2025 (Updated)"
+}
+
+### Delete a campaign
+DELETE http://localhost:3001/api/campaigns/1
