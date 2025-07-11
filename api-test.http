@@ -76,3 +76,45 @@ Content-Type: application/json
 
 ### Delete a campaign
 DELETE http://localhost:3001/api/campaigns/1
+
+
+### Section APIs
+
+### Get all sections
+GET http://localhost:3001/api/sections
+
+### Create a new section
+POST http://localhost:3001/api/sections
+Content-Type: application/json
+
+{
+  "name": "Summer Hero Banner",
+  "type": "hero",
+  "language": "en",
+  "campaignId": 1,
+  "content": {
+    "title": "Welcome to our Summer Sale!",
+    "imageUrl": "/images/summer-hero.jpg"
+  }
+}
+
+### Get a single section by ID
+GET http://localhost:3001/api/sections/10
+
+### Update a section
+PUT http://localhost:3001/api/sections/10
+Content-Type: application/json
+
+{
+  "name": "Summer Hero Banner (Updated)",
+  "type": "hero",
+  "language": "en",
+  "campaignId": 1,
+  "content": {
+    "title": "Welcome to our Massive Summer Sale!",
+    "imageUrl": "/images/summer-hero-updated.jpg"
+  }
+}
+
+### Delete a section
+DELETE http://localhost:3001/api/sections/10
