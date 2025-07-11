@@ -3,6 +3,7 @@ import db from "../models";
 import templateRoutes from "./routes/template.routes";
 import campaignRoutes from "./routes/campaign.routes";
 import sectionRoutes from "./routes/section.routes";
+import productRoutes from "./routes/product.routes";
 import cors from "cors";
 import dotenv from "dotenv";
 import bodyParser from "body-parser";
@@ -25,6 +26,7 @@ app.use(express.json());
 app.use("/api/templates", templateRoutes);
 app.use("/api/campaigns", campaignRoutes);
 app.use("/api/sections", sectionRoutes);
+app.use("/api/products", productRoutes);
 
 app.get("/", (req, res) => {
   res.send("Hello, world!");

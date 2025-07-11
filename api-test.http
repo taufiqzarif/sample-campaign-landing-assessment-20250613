@@ -118,3 +118,33 @@ Content-Type: application/json
 
 ### Delete a section
 DELETE http://localhost:3001/api/sections/10
+
+
+### Product APIs
+
+### Get all products
+GET http://localhost:3001/api/products
+
+### Create a new product
+POST http://localhost:3001/api/products
+Content-Type: application/json
+
+{
+  "name": "Stylish Summer T-Shirt",
+  "price": 29.99,
+  "imageUrl": "/images/summer-tshirt.jpg"
+}
+
+### Get a single product by ID
+GET http://localhost:3001/api/products/5
+
+### Update a product
+PUT http://localhost:3001/api/products/1
+Content-Type: application/json
+
+{
+  "price": 25.99
+}
+
+### Delete a product
+DELETE http://localhost:3001/api/products/1
