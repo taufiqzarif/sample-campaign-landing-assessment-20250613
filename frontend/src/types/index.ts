@@ -10,6 +10,7 @@ export interface SectionContent {
   campaignId: number;
   sectionId: number;
   language: "en" | "my";
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
   content: any;
 }
 
