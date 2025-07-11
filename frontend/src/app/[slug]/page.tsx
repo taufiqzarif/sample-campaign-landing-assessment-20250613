@@ -2,6 +2,7 @@ import { Campaign, Section } from "@/types";
 import Hero from "@/components/Hero";
 import ProductList from "@/components/ProductList";
 import Footer from "@/components/Footer";
+import LanguageSwitcher from "@/components/LanguageSwitcher";
 import { headers } from "next/headers";
 
 export const dynamic = "force-dynamic";
@@ -69,6 +70,7 @@ export default async function CampaignPage({
 
   return (
     <main>
+      <LanguageSwitcher />
       {campaign.template.sections
         .sort((a, b) => a.id - b.id) // Simple sort by id
         .map((section) => (
